@@ -38,7 +38,8 @@
         app:cardCornerRadius="0dp"
         app:cardElevation="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:theme="@style/Theme.MaterialComponents.Light">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
