@@ -22,7 +22,7 @@ import com.squareup.moshi.JsonClass
 
 /**
  * DataTransferObjects go in this file. These are responsible for parsing responses from the server
- * or formatting objects to send to the server. You should convert these to domain objects before
+ * or formatting objects to send to the server. should be converted to domain objects before
  * using them.
  */
 
@@ -34,32 +34,37 @@ import com.squareup.moshi.JsonClass
  * {
  *   "videos": []
  * }
+ * list of json objects -> list of network video objects
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideoContainer(val videos: List<NetworkVideo>)
 
 /**
  * Videos represent a devbyte that can be played.
+ * This is to parse second level of our network result which is video objects
+ * similar to domain object "video"
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
-        val title: String,
-        val description: String,
-        val url: String,
-        val updated: String,
-        val thumbnail: String,
-        val closedCaptions: String?)
+    val title: String,
+    val description: String,
+    val url: String,
+    val updated: String,
+    val thumbnail: String,
+    val closedCaptions: String?
+)
 
 /**
- * Convert Network results to database objects
+ * Convert Network results to domain objects
  */
 fun NetworkVideoContainer.asDomainModel(): List<Video> {
     return videos.map {
         Video(
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail
+        )
     }
 }
