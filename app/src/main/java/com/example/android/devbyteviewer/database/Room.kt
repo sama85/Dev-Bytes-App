@@ -18,9 +18,11 @@
 package com.example.android.devbyteviewer.database
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+@Database(entities = [DatabaseVideo::class], version = 1)
 abstract class VideosDatabase : RoomDatabase() {
     //DAO interface is implemented by room
     abstract val videoDao: VideoDao

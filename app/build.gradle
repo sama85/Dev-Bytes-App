@@ -87,9 +87,17 @@ dependencies {
     // Glide for images
     implementation "com.github.bumptech.glide:glide:$version_glide"
 
-    // Room database
+//    // Room database
+//    implementation "androidx.room:room-runtime:$version_room"
+//    kapt "androidx.room:room-compiler:$version_room"
+
+    // Room and Lifecycle dependencies
     implementation "androidx.room:room-runtime:$version_room"
+    annotationProcessor "androidx.room:room-compiler:$version_room"
+
+    // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
 
     // Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$version_room"
