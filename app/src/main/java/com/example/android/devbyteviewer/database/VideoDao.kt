@@ -10,10 +10,10 @@ import androidx.room.Query
 interface VideoDao{
 
     @Query("select * from databasevideo")
-    fun getAllVideos() : List<DatabaseVideo>
+    fun getAllVideos() : LiveData<List<DatabaseVideo>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     //HOW LIVE DATA MAKES ROOM QUERY FROM UI THREAD EXECUTE IN BG?
-    fun insertAll(videos : LiveData<List<DatabaseVideo>>)
+    fun insertAll(videos : List<DatabaseVideo>)
 
 }
