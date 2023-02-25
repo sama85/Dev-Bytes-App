@@ -1,5 +1,6 @@
 package com.example.android.devbyteviewer.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -12,7 +13,7 @@ interface VideoDao{
     fun getAllVideos() : List<DatabaseVideo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    //WHY VARARG?
-    fun insertAll(vararg videos : DatabaseVideo)
+    //HOW LIVE DATA MAKES ROOM QUERY FROM UI THREAD EXECUTE IN BG?
+    fun insertAll(videos : LiveData<List<DatabaseVideo>>)
 
 }

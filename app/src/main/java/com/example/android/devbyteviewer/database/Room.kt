@@ -16,3 +16,32 @@
  */
 
 package com.example.android.devbyteviewer.database
+
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
+
+abstract class VideosDatabase : RoomDatabase() {
+    //DAO interface is implemented by room
+    abstract val videoDao: VideoDao
+
+    companion object {
+        var INSTANCE: VideosDatabase? = null
+        fun getDatabase(context: Context): VideosDatabase {
+            synchronized(this) {
+                //HOW DID SMART CAST WORK FOR instance? IT'S MODIFIED BETWEEN CHECK AND USE
+                var instance = INSTANCE
+
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext, VideosDatabase::class.java,
+                        "videos_database"
+                    ).build()
+                    INSTANCE = instance
+                }
+                return instance
+            }
+        }
+    }
+
+}
