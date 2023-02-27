@@ -16,3 +16,27 @@
  */
 
 package com.example.android.devbyteviewer.work
+
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import com.example.android.devbyteviewer.database.DatabaseVideo
+import com.example.android.devbyteviewer.database.VideosDatabase
+import com.example.android.devbyteviewer.repository.VideosRepository
+import retrofit2.HttpException
+
+class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
+    CoroutineWorker(appContext, params) {
+    //runs in a background thread
+    override suspend fun doWork(): Result {
+        val videosDatabase = VideosDatabase.getDatabase(applicationContext)
+        val repository = VideosRepository(videosDatabase)
+
+        return try{
+            repository.refreshDatabase()
+            Result.success()
+        } catch (exception: HttpException) {
+            Result.retry()
+        }
+    }
+}
