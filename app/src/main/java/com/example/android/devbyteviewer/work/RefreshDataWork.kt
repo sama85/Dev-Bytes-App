@@ -25,14 +25,21 @@ import com.example.android.devbyteviewer.database.VideosDatabase
 import com.example.android.devbyteviewer.repository.VideosRepository
 import retrofit2.HttpException
 
+//WHAT ARE CONSTRAINS FOR THIS WORKER? HOW OFTEN IT RUNS?
 class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
     CoroutineWorker(appContext, params) {
-    //runs in a background thread
+
+    companion object{
+        const val WORK_NAME = "RefreshDataWorker"
+    }
+
+    //runs in a coroutine in a background thread
     override suspend fun doWork(): Result {
         val videosDatabase = VideosDatabase.getDatabase(applicationContext)
         val repository = VideosRepository(videosDatabase)
 
         return try{
+            //suspend fucntion can be only called from a coroutine or another suspend function
             repository.refreshDatabase()
             Result.success()
         } catch (exception: HttpException) {
